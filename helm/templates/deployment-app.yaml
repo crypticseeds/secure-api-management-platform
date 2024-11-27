@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "secure-api-platform.fullname" . }}-app
+  labels:
+    {{- include "secure-api-platform.labels" . | nindent 4 }}
+    app.kubernetes.io/component: api
+spec:
+  replicas: {{ .Values.replicaCount.app }}
+  selector:
+    matchLabels:
+      {{- include "secure-api-platform.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: api
+  template:
+    metadata:
+      labels:
+        {{- include "secure-api-platform.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: api
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.app.repository }}:{{ .Values.image.app.tag }}"
+        imagePullPolicy: {{ .Values.image.app.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.service.app.port }}
+        env:
+        - name: DB_HOST
+          value: {{ include "secure-api-platform.fullname" . }}-postgres
+        - name: DB_PORT
+          value: "{{ .Values.service.postgres.port }}"
+        {{- include "secure-api-platform.databaseEnv" . | nindent 8 }}

@@ -1,0 +1,76 @@
+# Default values for secure-api-platform
+replicaCount:
+  app: 2
+  postgres: 1
+  prometheus: 1
+  grafana: 1
+  jaeger: 1
+
+image:
+  app:
+    repository: secure-api-platform
+    tag: latest
+    pullPolicy: IfNotPresent
+  postgres:
+    repository: postgres
+    tag: latest
+  prometheus:
+    repository: prom/prometheus
+    tag: latest
+  grafana:
+    repository: grafana/grafana
+    tag: latest
+  jaeger:
+    repository: jaegertracing/all-in-one
+    tag: latest
+
+service:
+  app:
+    type: ClusterIP
+    port: 8080
+  postgres:
+    port: 5432
+  prometheus:
+    port: 9090
+  grafana:
+    port: 3000
+  jaeger:
+    ports:
+      ui: 16686
+      collector: 14250
+
+ingress:
+  enabled: true
+  className: nginx
+  host: secure-api-platform.local
+  tls: false
+
+postgresql:
+  database: apisecurity
+  username: postgres
+  # password will be auto-generated if not provided
+  # password: postgres
+  persistence:
+    enabled: true
+    size: 10Gi
+
+resources:
+  app:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
+  postgres:
+    limits:
+      cpu: 1000m
+      memory: 1Gi
+    requests:
+      cpu: 500m
+      memory: 512Mi
+
+monitoring:
+  prometheus:
+    scrapeInterval: 15s
+    evaluationInterval: 15s
