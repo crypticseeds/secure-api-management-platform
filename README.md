@@ -2,39 +2,38 @@
 
 The Secure API Management Platform is a project demonstrating secure user authentication, API key management, Rate limiting, observability, and automated documentation. The application is built with Go, containerized using Docker, and deployed in Kubernetes. Monitoring and metrics are integrated using Prometheus and Jaeger.
 
-Features
-User Management:
-User registration, login, and profile management.
-JWT-based authentication with role-based access control (RBAC).
-API Key Management:
-Generate, list, and revoke scoped API keys for programmatic access.
-API Documentation:
-Auto-generated Swagger/OpenAPI documentation available at /docs.
-Monitoring and Observability:
-Request tracing using Jaeger.
-Metrics collection using Prometheus.
-Health and Metrics Endpoints:
-/health for application readiness.
-/metrics for Prometheus metrics.
-Rate Limiting:
-Rate limiting middleware to prevent abuse.
+## Features
 
-Tech Stack
-Programming Language: Go
-Framework: Gin
-Database: PostgreSQL
-Observability: Prometheus, Jaeger
-Documentation: Swagger (Swaggo)
-Containerization: Docker
-Deployment: Kubernetes
+### User Management:
+- User registration, login, and profile management.
+- JWT-based authentication with role-based access control (RBAC).
 
-Getting Started
-Prerequisites
-Go 1.20+
-Docker
-Kubernetes (Minikube/KIND for local development)
-PostgreSQL
-Git
+### API Key Management:
+- Generate, list, and revoke scoped API keys for programmatic access.
+
+### API Documentation:
+- Auto-generated Swagger/OpenAPI documentation available at /docs.
+
+### Monitoring and Observability:
+- Request tracing using Jaeger.
+- Metrics collection using Prometheus.
+
+### Health and Metrics Endpoints:
+- /health for application readiness.
+- /metrics for Prometheus metrics.
+
+### Rate Limiting:
+- Rate limiting middleware to prevent abuse.
+
+## Tech Stack
+
+- Programming Language: Go
+- Framework: Gin
+- Database: PostgreSQL
+- Observability: Prometheus, Jaeger
+- Documentation: Swagger (Swaggo)
+- Containerization: Docker
+- Deployment: Docker Compose or Kubernetes
 
 ## Project Structure
 
@@ -42,7 +41,15 @@ Git
 - `/pkg`: Reusable packages (e.g., auth, database, handlers).
 - `/configs`: Configuration files (e.g., database, environment variables).
 - `/docs`: Swagger/OpenAPI documentation files.
-- `/tests`: Test files for unit and functional tests.
+
+## Getting Started
+
+### Prerequisites
+- Go 1.20+
+- Docker
+- Kubernetes (Minikube/KIND for local development)
+- PostgreSQL
+- Git
 
 ## API Endpoints
 
@@ -77,6 +84,7 @@ Git
 | `/health` | GET | Health check endpoint |
 | `/metrics` | GET | Prometheus metrics endpoint |
 
+
 ## API Documentation
 
 The API documentation is available through Swagger UI:
@@ -91,17 +99,13 @@ The API documentation is available through Swagger UI:
    - Browse and test available endpoints
    - View request/response schemas and examples
 
-2. Run the application:
-   ```bash
-   go run cmd/main.go
-   ```
-
 3. Access the Jaeger UI:
    - Open [http://localhost:16686](http://localhost:16686)
    - Select "api-security-platform" from the Service dropdown
    - Click "Find Traces" to view traces
 
-### Access Services:
+
+## Access Services:
 
 - API: http://localhost:8080
 - Swagger UI: http://localhost:8080/docs/index.html#/
@@ -114,9 +118,7 @@ The API documentation is available through Swagger UI:
 
 - Add Keycloak for authentication and authorization.
 - Add refresh tokens for enhanced session management.
-- Integrate role-based policies for API key scopes.
 - Implement webhook support for user-defined event notifications.
-
 
 ## Contributing
 
