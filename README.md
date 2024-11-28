@@ -117,15 +117,25 @@ The API documentation is available through Swagger UI:
 ## Reference Images
 
 ![Health Check](./docs/images/01-health.png)
+
 ![Register](./docs/images/02-register-user.png)
+
 ![Login](./docs/images/03-login.png)
-![Create API Key](./docs/images/06-create-api-key.png)
-![List API Keys](./docs/images/07-list-api-keys.png)
-![API Key Test](./docs/images/08-api-key-test.png)
+
+![Create API Key](./docs/images/04-create-api-key.png)
+
+![List API Keys](./docs/images/05-list-api-keys.png)
+
+![API Key Test](./docs/images/06-api-key-test.png)
+
 ![Delete API Key](./docs/images/09-delete-api-key.png)
+
 ![Swagger UI](./docs/images/12-swagger.png)
+
 ![Jaeger](./docs/images/13-jaeger.png)
+
 ![Grafana](./docs/images/15-dashboard.png)
+
 ![Response Time](./docs/images/16-response-time.png)
 
 
