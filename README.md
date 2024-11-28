@@ -116,27 +116,27 @@ The API documentation is available through Swagger UI:
 
 ## Reference Images
 
-![Health Check](./docs/images/01-health.png)
+<img src="./docs/images/01-health.png" alt="Health Check" />
 
-![Register](./docs/images/02-register-user.png)
+<img src="./docs/images/02-register-user.png" alt="Register" />
 
-![Login](./docs/images/03-login.png)
+<img src="./docs/images/03-login.png" alt="Login" />
 
-![Create API Key](./docs/images/04-create-api-key.png)
+<img src="./docs/images/04-create-api-key.png" alt="Create API Key" />
 
-![List API Keys](./docs/images/05-list-api-keys.png)
+<img src="./docs/images/05-list-api-keys.png" alt="List API Keys" />
 
-![API Key Test](./docs/images/06-api-key-test.png)
+<img src="./docs/images/06-api-key-test.png" alt="API Key Test" />
 
-![Delete API Key](./docs/images/09-delete-api-key.png)
+<img src="./docs/images/09-delete-api-key.png" alt="Delete API Key" />
 
-![Swagger UI](./docs/images/12-swagger.png)
+<img src="./docs/images/12-swagger.png" alt="Swagger UI" />
 
-![Jaeger](./docs/images/13-jaeger.png)
+<img src="./docs/images/13-jaeger.png" alt="Jaeger" />
 
-![Grafana](./docs/images/15-dashboard.png)
+<img src="./docs/images/15-dashboard.png" alt="Grafana" />
 
-![Response Time](./docs/images/16-response-time.png)
+<img src="./docs/images/16-response-time.png" alt="Response Time" />
 
 
 ## Future Improvements
