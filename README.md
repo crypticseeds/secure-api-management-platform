@@ -122,11 +122,11 @@ The API documentation is available through Swagger UI:
 
 <img src="./docs/images/03-login.png" alt="Login" />
 
-<img src="./docs/images/04-create-api-key.png" alt="Create API Key" />
+<img src="./docs/images/06-create-api-key.png" alt="Create API Key" />
 
-<img src="./docs/images/05-list-api-keys.png" alt="List API Keys" />
+<img src="./docs/images/07-list-api-keys.png" alt="List API Keys" />
 
-<img src="./docs/images/06-api-key-test.png" alt="API Key Test" />
+<img src="./docs/images/08-api-key-test.png" alt="API Key Test" />
 
 <img src="./docs/images/09-delete-api-key.png" alt="Delete API Key" />
 
