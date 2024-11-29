@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "secure-api-platform.fullname" . }}-jaeger
+  labels:
+    {{- include "secure-api-platform.labels" . | nindent 4 }}
+    app.kubernetes.io/component: jaeger
+    app.kubernetes.io/created-by: "Femi.Akinlotan"
+spec:
+  replicas: {{ .Values.replicaCount.jaeger }}
+  selector:
+    matchLabels:
+      {{- include "secure-api-platform.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: jaeger
+  template:
+    metadata:
+      labels:
+        {{- include "secure-api-platform.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: jaeger
+    spec:
+      containers:
+      - name: jaeger
+        image: "{{ .Values.image.jaeger.repository }}:{{ .Values.image.jaeger.tag }}"
+        imagePullPolicy: {{ .Values.image.jaeger.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.service.jaeger.ports.ui }}
+          name: ui
+        - containerPort: {{ .Values.service.jaeger.ports.collector }}
+          name: collector 

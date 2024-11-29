@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "secure-api-platform.fullname" . }}-postgres
+  labels:
+    {{- include "secure-api-platform.labels" . | nindent 4 }}
+    app.kubernetes.io/component: postgres
+    app.kubernetes.io/created-by: femi.akinlotan
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "secure-api-platform.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: postgres
+  template:
+    metadata:
+      labels:
+        {{- include "secure-api-platform.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: "{{ .Values.image.postgres.repository }}:{{ .Values.image.postgres.tag }}"
+        ports:
+        - containerPort: {{ .Values.service.postgres.port }}
+          name: postgres
+        env:
+        {{- include "secure-api-platform.databaseEnv" . | nindent 8 }}
+        volumeMounts:
+        - name: postgres-data
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: postgres-data
+        persistentVolumeClaim:
+          claimName: {{ include "secure-api-platform.fullname" . }}-postgres-pvc

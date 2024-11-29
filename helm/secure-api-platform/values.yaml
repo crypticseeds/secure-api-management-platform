@@ -1,28 +1,37 @@
 # Default values for secure-api-platform
 replicaCount:
-  app: 2
+  app: 1
   postgres: 1
   prometheus: 1
   grafana: 1
   jaeger: 1
+  swaggerui: 1
 
 image:
   app:
-    repository: secure-api-platform
+    repository: crypticseeds/secure-api-management-platform
     tag: latest
     pullPolicy: IfNotPresent
   postgres:
     repository: postgres
     tag: latest
+    pullPolicy: IfNotPresent
+  swaggerui:
+    repository: swaggerapi/swagger-ui
+    tag: latest
+    pullPolicy: IfNotPresent
   prometheus:
     repository: prom/prometheus
     tag: latest
+    pullPolicy: IfNotPresent
   grafana:
     repository: grafana/grafana
     tag: latest
+    pullPolicy: IfNotPresent
   jaeger:
     repository: jaegertracing/all-in-one
     tag: latest
+    pullPolicy: IfNotPresent
 
 service:
   app:
@@ -38,6 +47,9 @@ service:
     ports:
       ui: 16686
       collector: 14250
+  swaggerui:
+    type: ClusterIP
+    port: 8081
 
 ingress:
   enabled: true
@@ -48,11 +60,16 @@ ingress:
 postgresql:
   database: apisecurity
   username: postgres
-  # password will be auto-generated if not provided
-  # password: postgres
+  password: postgres123
   persistence:
     enabled: true
-    size: 10Gi
+    size: 1Gi
+    prometheus:
+      enabled: true
+      size: 1Gi
+    grafana:
+      enabled: true
+      size: 1Gi
 
 resources:
   app:
@@ -60,15 +77,15 @@ resources:
       cpu: 500m
       memory: 512Mi
     requests:
-      cpu: 250m
+      cpu: 200m
       memory: 256Mi
   postgres:
     limits:
-      cpu: 1000m
-      memory: 1Gi
-    requests:
       cpu: 500m
       memory: 512Mi
+    requests:
+      cpu: 200m
+      memory: 256Mi
 
 monitoring:
   prometheus:

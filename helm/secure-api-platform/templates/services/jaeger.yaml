@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "secure-api-platform.fullname" . }}-jaeger
+  labels:
+    {{- include "secure-api-platform.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ .Values.service.jaeger.ports.ui }}
+      targetPort: {{ .Values.service.jaeger.ports.ui }}
+      protocol: TCP
+      name: ui
+    - port: {{ .Values.service.jaeger.ports.collector }}
+      targetPort: {{ .Values.service.jaeger.ports.collector }}
+      protocol: TCP
+      name: collector
+  selector:
+    {{- include "secure-api-platform.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: jaeger 

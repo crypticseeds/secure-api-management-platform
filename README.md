@@ -91,7 +91,7 @@ The API documentation is available through Swagger UI:
 
 1. Run the application:
    ```bash
-   go run cmd/main.go
+   docker-compose up
    ```
 
 2. Access Swagger UI:

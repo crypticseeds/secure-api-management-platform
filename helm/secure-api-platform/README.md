@@ -33,5 +33,10 @@ The following table lists the configurable parameters of the chart and their def
 1. Update values.yaml with your configuration
 2. Install the chart:
    ```bash
-   helm install secure-api-platform ./secure-api-platform -f values.yaml
+   helm install secure-api-platform ./secure-api-platform
    ```
+3. Port forward to access the services:
+   ```bash
+   kubectl port-forward svc/secure-api-platform 8080:8080 --address 0.0.0.0
+   ```
+4. Access the API application at http://localhost:8080/health to check the health of the API application

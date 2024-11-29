@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "secure-api-platform.fullname" . }}-postgres
+  labels:
+    {{- include "secure-api-platform.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ .Values.service.postgres.port }}
+      targetPort: {{ .Values.service.postgres.port }}
+      protocol: TCP
+      name: postgres
+  selector:
+    {{- include "secure-api-platform.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: postgres 

@@ -5,6 +5,7 @@ metadata:
   labels:
     {{- include "secure-api-platform.labels" . | nindent 4 }}
     app.kubernetes.io/component: api
+    app.kubernetes.io/created-by: "Femi.Akinlotan"
 spec:
   replicas: {{ .Values.replicaCount.app }}
   selector:
@@ -17,15 +18,45 @@ spec:
         {{- include "secure-api-platform.selectorLabels" . | nindent 8 }}
         app.kubernetes.io/component: api
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
       containers:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.app.repository }}:{{ .Values.image.app.tag }}"
         imagePullPolicy: {{ .Values.image.app.pullPolicy }}
         ports:
         - containerPort: {{ .Values.service.app.port }}
+          name: http
+        resources:
+          {{- toYaml .Values.resources.app | nindent 12 }}
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: http
+          initialDelaySeconds: 5
+          periodSeconds: 5
         env:
         - name: DB_HOST
           value: {{ include "secure-api-platform.fullname" . }}-postgres
         - name: DB_PORT
           value: "{{ .Values.service.postgres.port }}"
-        {{- include "secure-api-platform.databaseEnv" . | nindent 8 }}
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "secure-api-platform.fullname" . }}-secrets
+              key: POSTGRES_USER
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "secure-api-platform.fullname" . }}-secrets
+              key: POSTGRES_PASSWORD
+        - name: DB_NAME
+          value: {{ .Values.postgresql.database }}

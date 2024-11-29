@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "secure-api-platform.fullname" . }}-swaggerui
+  labels:
+    {{- include "secure-api-platform.labels" . | nindent 4 }}
+    app.kubernetes.io/component: swaggerui
+    app.kubernetes.io/created-by: "Femi.Akinlotan"
+spec:
+  replicas: {{ .Values.replicaCount.swaggerui }}
+  selector:
+    matchLabels:
+      {{- include "secure-api-platform.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: swaggerui
+  template:
+    metadata:
+      labels:
+        {{- include "secure-api-platform.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: swaggerui
+    spec:
+      containers:
+      - name: swagger-ui
+        image: "{{ .Values.image.swaggerui.repository }}:{{ .Values.image.swaggerui.tag }}"
+        imagePullPolicy: {{ .Values.image.swaggerui.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.service.swaggerui.port }}
+          name: http
+        env:
+        - name: SWAGGER_JSON
+          value: /swagger/swagger.json
+        - name: BASE_URL
+          value: /swagger
+      volumes:
+      - name: swagger-docs
+        emptyDir: {}

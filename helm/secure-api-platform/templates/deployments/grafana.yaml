@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "secure-api-platform.fullname" . }}-grafana
+  labels:
+    {{- include "secure-api-platform.labels" . | nindent 4 }}
+    app.kubernetes.io/component: grafana
+    app.kubernetes.io/created-by: "Femi.Akinlotan"
+spec:
+  replicas: {{ .Values.replicaCount.grafana }}
+  selector:
+    matchLabels:
+      {{- include "secure-api-platform.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: grafana
+  template:
+    metadata:
+      labels:
+        {{- include "secure-api-platform.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: grafana
+    spec:
+      containers:
+      - name: grafana
+        image: "{{ .Values.image.grafana.repository }}:{{ .Values.image.grafana.tag }}"
+        imagePullPolicy: {{ .Values.image.grafana.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.service.grafana.port }}
+          name: http 
